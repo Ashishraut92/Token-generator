@@ -19,14 +19,15 @@ app.use(cors({
     origin: 'http://127.0.0.1:5500'
 }))
 
-mongoose.connect("mongodb://localhost:27017/tokendata")
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB connected"))
 
+console.log(process.version);  // Example: v18.17.1
+
+app.post('/createtoken', createJwt)
 
 
-app.listen(4000, () => {
-  console.log("App listening on port 4000");
-});
+app.listen(4000 || process.env.PORT);
 
 
 
